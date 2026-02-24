@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventGO - Alternative Layout</title>
+
+<style>
+/* ===== COLOR PALETTE =====
+Primary: #2C3E50 (Dark Blue)
+Secondary: #E74C3C (Red Accent)
+Accent: #F1C40F (Yellow CTA)
+Background: #ECF0F1
+Text: #2C3E50
+========================== */
+
+body {
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background:#ECF0F1;
+  display:flex;
+}
+
+/* ===== SIDEBAR NAVIGATION ===== */
+.sidebar {
+  width:220px;
+  background:#2C3E50;
+  color:white;
+  min-height:100vh;
+  padding:20px;
+  position:fixed;
+}
+
+.sidebar h2 {
+  margin-top:0;
+}
+
+.sidebar a {
+  display:block;
+  color:white;
+  text-decoration:none;
+  padding:10px 0;
+}
+
+.sidebar a:hover {
+  background:#34495E;
+  padding-left:10px;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main {
+  margin-left:220px;
+  width:100%;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+  background:url('images/5.jpg') center/cover no-repeat;
+  height:300px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  text-align:center;
+  position:relative;
+}
+
+.hero::after {
+  content:"";
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.6);
+}
+
+.hero-content {
+  position:relative;
+  z-index:1;
+}
+
+.hero button {
+  background:#F1C40F;
+  border:none;
+  padding:12px 20px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* ===== EVENT GRID ===== */
+.events {
+  padding:30px;
+}
+
+.event-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
+  gap:20px;
+}
+
+.card {
+  background:white;
+  padding:15px;
+  border-radius:8px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.card img {
+  width:100%;
+  border-radius:8px;
+}
+
+.card button {
+  background:#E74C3C;
+  color:white;
+  border:none;
+  padding:8px 15px;
+  cursor:pointer;
+}
+
+/* ===== LOGIN SECTION ===== */
+.login-section {
+  padding:30px;
+  background:white;
+  margin:30px;
+  border-radius:10px;
+}
+
+.tabs {
+  display:flex;
+  gap:20px;
+  margin-bottom:20px;
+}
+
+.tabs button {
+  border:none;
+  background:#BDC3C7;
+  padding:10px;
+  cursor:pointer;
+}
+
+.active {
+  background:#2C3E50;
+  color:white;
+}
+
+form {
+  display:flex;
+  flex-direction:column;
+}
+
+input {
+  margin-bottom:10px;
+  padding:8px;
+}
+
+.submit-btn {
+  background:#2C3E50;
+  color:white;
+  border:none;
+  padding:10px;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align:center;
+  padding:20px;
+  background:#2C3E50;
+  color:white;
+  margin-top:40px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .sidebar {
+    position:relative;
+    width:100%;
+    min-height:auto;
+  }
+  .main {
+    margin-left:0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>🎟 EventGO</h2>
+  <a href="#">Home</a>
+  <a href="#events">Events List</a>
+  <a href="#login">Login / Sign Up</a>
+</div>
+
+<div class="main">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Welcome to EventGO</h1>
+    <p>Discover and book amazing events near you</p>
+    <button onclick="scrollToEvents()">View Events</button>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="events" id="events">
+  <h2>              Upcoming Events</h2>
+
+  <div class="event-grid">
+    <div class="card">
+      <img src="images/3.jpeg">
+      <h3>Wedding Expo 2026</h3>
+      <p>15 March 2026 | Dammam</p>
+      <p>SAR 150</p>
+      <button onclick="book()">Book Now</button>
+    </div>
+
+    <div class="card">
+      <img src="images/4.jpg">
+      <h3>Precious Stones Expo </h3>
+      <p>22 April 2026 | Riyadh</p>
+      <p>SAR 200</p>
+      <button onclick="book()">Book Now</button>
+    </div>
+  </div>
+</section>
+
+<!-- LOGIN -->
+<section class="login-section" id="login">
+  <h2>Account Access</h2>
+
+  <div class="tabs">
+    <button class="active" onclick="showLogin()">Login</button>
+    <button onclick="showSignup()">Sign Up</button>
+  </div>
+
+  <!-- LOGIN FORM -->
+  <form id="loginForm" onsubmit="return brokenLogin()">
+    <input type="email" placeholder="Email" required>
+    <input type="password" placeholder="Password" required>
+    <a href="#">Forgot Password?</a>
+    <button class="submit-btn">Login</button>
+  </form>
+
+  <!-- SIGNUP FORM -->
+  <form id="signupForm" style="display:none;" onsubmit="return brokenSignup()">
+    <input type="text" placeholder="Full Name" required>
+    <input type="email" placeholder="Email" required>
+    <input type="password" placeholder="Password" required>
+    <input type="password" placeholder="Confirm Password" required>
+    <button class="submit-btn">Sign Up</button>
+  </form>
+
+</section>
+
+<footer>
+  © 2026 EventGO | Alternative Layout Version
+</footer>
+
+</div>
+
+<script>
+function scrollToEvents(){
+  document.getElementById("events").scrollIntoView({behavior:"smooth"});
+}
+
+function book(){
+  alert("Booking confirmed! Ticket ready to download.");
+}
+
+/* Broken Validation (Confirm password not checked) */
+function brokenLogin(){
+  alert("Login successful (validation incomplete).");
+  return false;
+}
+
+function brokenSignup(){
+  alert("Sign Up successful (confirm password NOT checked).");
+  return false;
+}
+
+function showLogin(){
+  document.getElementById("loginForm").style.display="flex";
+  document.getElementById("signupForm").style.display="none";
+}
+
+function showSignup(){
+  document.getElementById("loginForm").style.display="none";
+  document.getElementById("signupForm").style.display="flex";
+}
+</script>
+
+</body>
+</html>
